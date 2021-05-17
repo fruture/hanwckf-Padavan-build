@@ -41,7 +41,7 @@ jobs:
       run: |
         cd /opt/rt-n56u/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
-        echo "config not found "
+        echo "configs/templates/$TNAME.config not found "
         exit 1
         fi
         cp -f configs/templates/$TNAME.config .config
@@ -52,5 +52,5 @@ jobs:
       uses: actions/upload-artifact@master
       if: always()
       with:
-        name: Padavan-packages
+        name: K2
         path: /opt/images
