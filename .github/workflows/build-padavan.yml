@@ -31,13 +31,13 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev
     - name: Clone source code
       run: |
-        sudo git clone --depth=1 https://github.com/hanwckf/rt-n56u.git /opt/rt-n56u
+        sudo git clone --depth=1 https://github.com/monw/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sudo ./dl_toolchain.sh
         sudo mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: MI-MINI
+        TNAME: R6220
       run: |
         cd /opt/rt-n56u/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
@@ -52,5 +52,5 @@ jobs:
       uses: actions/upload-artifact@master
       if: always()
       with:
-        name: MI-MINI2023
+        name: R6220—wifi-ok
         path: /opt/images
