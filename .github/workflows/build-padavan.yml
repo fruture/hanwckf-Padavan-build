@@ -36,10 +36,10 @@ jobs:
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         cd /opt/rt-n56u/trunk
-        fakeroot ./build_firmware_modify R6220
+        fakeroot ./build_firmware_modify RM2100
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
       with:
-        name: R6220-ok
-        path: /opt/rt-n56u/trunk/images
+        name: RM2100build
+        path: /opt/rt-n56u/trunk/images/*.trx
