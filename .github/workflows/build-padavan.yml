@@ -26,31 +26,20 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo apt update
-        sudo apt install -y unzip libtool-bin curl cmake gperf gawk flex bison nano xxd \
-        cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
-        pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev
-    - name: Clone source code
+        sudo apt install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd \
+        fakeroot kmod cpio git python3-docutils gettext automake autopoint \
+        texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev \
+        libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
+    - name: Clone source code and Build
       run: |
-        sudo git clone --depth=1 https://github.com/hanwckf/rt-n56u.git /opt/rt-n56u
+        git clone --depth=1 https://e.coding.net/hanwckf/rt-n56u/padavan.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
-        sudo ./dl_toolchain.sh
-        sudo mkdir -p /opt/images/
-    - name: Build Firmware
-      env:
-        TNAME: RM2100
-      run: |
+        sh dl_toolchain.sh
         cd /opt/rt-n56u/trunk
-        if [ ! -f configs/templates/$TNAME.config ] ; then
-        echo "configs/templates/$TNAME.config not found "
-        exit 1
-        fi
-        cp -f configs/templates/$TNAME.config .config
-        sudo ./clear_tree
-        sudo ./build_firmware_modify $TNAME
-        sudo mv -f images/*.trx /opt/images/
+        fakeroot ./build_firmware_modify R6220
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
       with:
-        name: RM2100-ok
-        path: /opt/images
+        name: R6220-ok
+        path: /opt/rt-n56u/trunk/images
