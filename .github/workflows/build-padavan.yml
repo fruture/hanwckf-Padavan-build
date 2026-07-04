@@ -8,8 +8,8 @@ on:
     - 'v*'
     branches: 
       - master
-#  schedule:
-#    - cron: 0 8 * * 5
+  schedule:
+    - cron: 0 8 * * 5
   watch:
     types: [started]
 
@@ -32,14 +32,14 @@ jobs:
         libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
     - name: Clone source code and Build
       run: |
-        git clone --depth=1 https://e.coding.net/hanwckf/rt-n56u/padavan.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/hanwckf/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         cd /opt/rt-n56u/trunk
-        fakeroot ./build_firmware_modify RM2100
+        fakeroot ./build_firmware_modify R6200
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
       with:
-        name: RM2100build
+        name: R6200build
         path: /opt/rt-n56u/trunk/images/*.trx
