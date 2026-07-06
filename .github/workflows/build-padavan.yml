@@ -36,7 +36,7 @@ jobs:
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         cd /opt/rt-n56u/trunk
-        fakeroot ./build_firmware_modify PSG1218
+        sudo fakeroot ./build_firmware_modify PSG1218
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
