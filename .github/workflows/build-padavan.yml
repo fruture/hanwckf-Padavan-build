@@ -32,11 +32,12 @@ jobs:
         libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
     - name: Clone source code and Build
       run: |
-        sudo git clone --depth=1 https://github.com/monw/rt-n56u.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/monw/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
-        sh dl_toolchain.sh
+        ./clean_toolchain
+        ./build_toolchain
         cd /opt/rt-n56u/trunk
-        fakeroot ./build_firmware_modify PSG1218
+        fakeroot ./build_firmware_modify R6220
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
