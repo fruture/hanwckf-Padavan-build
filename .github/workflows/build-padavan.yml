@@ -16,6 +16,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+  defaults:
+      run:
+        working-directory: ./opt
+    
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -49,7 +54,7 @@ jobs:
         sudo ./build_firmware_modify $TNAME
         sudo mv -f images/*.trx /opt/images/
     - name : Upload packages
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifactq@master
       if: always()
       with:
         name: R6220—wifi-ok2222
